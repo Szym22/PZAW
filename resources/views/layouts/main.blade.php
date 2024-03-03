@@ -24,8 +24,11 @@ $projectName = $json['name'];
         </style>
     </head>
     <body class="dark bg-slate-100 dark:bg-slate-900 text-white">   
+
+    @include('publications.alerts')
+
     <div class="flex bg-slate-100 dark:bg-slate-900 text-white h-screen">
-<div class="bg-green-500 p-4 w-1/5 h-full">
+<div class="bg-green-500 p-4 w-1/5 h-screen">
    
     <img src="{{asset("images/logo.png")}}" alt="Logo" class="w-16 h-16 mb-4" />
 
@@ -55,7 +58,17 @@ $projectName = $json['name'];
 
     <br><br>
 
-    <button class="text-2xl uppercase font-bold rounded-full bg-blue-500 text-white p-4 mt-auto w-full hover:bg-blue-600">Login</button>
+    @auth
+                <h1>Witaj <strong>{{ Auth::user()->name }}</strong>!</h1>
+	                <form action="{{ route('logout') }}" method="POST">
+    		    @csrf
+    		            <input type="submit" value="Wyloguj" />
+	                </form>
+                @else
+                    <a href="{{ route('login_user') }}"><button class="text-2xl uppercase font-bold rounded-full bg-blue-500 text-white p-4 mt-auto w-full hover:bg-blue-600">Login</button></a>
+    @endauth
+    <br><br>
+    <a href="{{ route('register') }}"><button class="text-2xl uppercase font-bold rounded-full bg-blue-500 text-white p-4 mt-auto w-full hover:bg-blue-600">Register</button></a>
   </div>
   
   <foot class="bg-gray-800 py-4 text-white text-center fixed bottom-0 w-full"> <!-- Stopka -->
@@ -71,4 +84,5 @@ $projectName = $json['name'];
 
     </body>
 </html>
+
 

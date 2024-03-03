@@ -19,5 +19,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'author_id',
+        'publication_id',
+        'content'
+    ];
+
+    public function author() {
+        return $this->belongsTo(User::class, 'author_id')->withTrashed();;
+    }
+
 }
